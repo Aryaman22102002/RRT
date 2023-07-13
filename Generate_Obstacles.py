@@ -1,5 +1,3 @@
-from PIL import Image, ImageOps
-import numpy as np 
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 from random import randrange
@@ -19,6 +17,7 @@ if num_of_obs < 10:
 elif num_of_obs > 20:
   num_of_obs = 20
   
+currentAxis = plt.gca()
 i = 0
 
 while i < num_of_obs:
@@ -27,9 +26,10 @@ while i < num_of_obs:
     length = randrange(100, 150)
     width = randrange(100, 150)
   
-    if(((x_coord > x_axis_min_limit + 5) and ((x_coord + length) < x_axis_max_limit - 5)) or ((y_coord > y_axis_min_limit + 5) and ((y_coord + width) < y_axis_max_limit - 5))):   
-        currentAxis = plt.gca()
+    if(((x_coord > x_axis_min_limit + 5) and ((x_coord + length) < x_axis_max_limit - 5)) and ((y_coord > y_axis_min_limit + 5) and ((y_coord + width) < y_axis_max_limit - 5))):    
         currentAxis.add_patch(Rectangle((x_coord, y_coord), length, width, facecolor="black"))
         i = i + 1
 
-plt.show()
+plt.axis('off')
+
+plt.savefig("obstacles.png")
