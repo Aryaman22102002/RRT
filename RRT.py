@@ -39,8 +39,8 @@ class RRTalgoritm():
             TempNode.parent = self.NearestNode
             
     def SampleAPoint(self):
-        x = random.randint(1, grid.shape[1])
-        y = random.randint(1, grid.shape[0])
+        x = random.randint(1, self.grid.shape[1])
+        y = random.randint(1, self.grid.shape[0])
         point = np.array([x, y])
         return point
     
@@ -61,7 +61,7 @@ class RRTalgoritm():
             temp_point[0] = location_start.x_position + i*u_hat[0]
             temp_point[1] = location_start.y_position + i*u_hat[1]
             
-            if(self.grid[min(round(temp_point[1]), 479), min(round(temp_point[0]), 639)] == 1 or self.grid[min(round(temp_point[1]) + 1, 479) , min(round(temp_point[0]), 639)] == 1 or self.grid[min(round(temp_point[1]), 479), min(round(temp_point[0]) + 1, 639)] == 1 or self.grid[min(round(temp_point[1]) + 1, 479), min(round(temp_point[0]) + 1, 639)] == 1 or self.grid[min(round(temp_point[1]) - 1, 479), min(round(temp_point[0]), 639)] == 1 or self.grid[min(round(temp_point[1]), 479), min(round(temp_point[0]) - 1, 639)] == 1 or self.grid[min(round(temp_point[1]) - 1, 479), min(round(temp_point[0]) - 1, 639)] == 1):
+            if(self.grid[min(round(temp_point[1]), self.grid.shape[0] - 1), min(round(temp_point[0]), self.grid.shape[1] - 1)] == 1 or self.grid[min(round(temp_point[1]) + 1, self.grid.shape[0] - 1) , min(round(temp_point[0]), self.grid.shape[1] - 1)] == 1 or self.grid[min(round(temp_point[1]), self.grid.shape[0] - 1), min(round(temp_point[0]) + 1, self.grid.shape[1] - 1)] == 1 or self.grid[min(round(temp_point[1]) + 1, self.grid.shape[0] - 1), min(round(temp_point[0]) + 1, self.grid.shape[1] - 1)] == 1 or self.grid[min(round(temp_point[1]) - 1, self.grid.shape[0] - 1), min(round(temp_point[0]), self.grid.shape[1] - 1)] == 1 or self.grid[min(round(temp_point[1]), self.grid.shape[0] - 1), min(round(temp_point[0]) - 1, self.grid.shape[1] - 1)] == 1 or self.grid[min(round(temp_point[1]) - 1, self.grid.shape[0] - 1), min(round(temp_point[0]) - 1, self.grid.shape[1] - 1)] == 1):
                 return True
             else:
                 return False
@@ -114,10 +114,24 @@ class RRTalgoritm():
         self.BackTraceRRTPath(goal.parent)
         
 
-grid = np.load("grid.npy")
-print(grid.shape)
-start = np.array([100.0, 100.0])
-goal = np.array([420.0, 500.0])
+grid = np.load("Images/Grid.npy")
+#start = np.array([100.0, 100.0])
+#goal = np.array([420.0, 500.0])
+
+flag = 0
+
+while flag == 0:
+    start_x = random.randint(1, grid.shape[0] - 1)
+    start_y = random.randint(1, grid.shape[1] - 1)
+    goal_x = random.randint(1, grid.shape[0] - 1)
+    goal_y = random.randint(1, grid.shape[1] - 1)
+
+    if(grid[start_x, start_y] == 0 and grid[goal_x, goal_y] == 0):
+        flag = 1
+
+start = np.array([start_x, start_y])
+goal = np.array([goal_x, goal_y])
+
 Num_Of_Iterations = 400
 Max_Num_Of_Iterations = 500
 step_size = 50
@@ -143,28 +157,28 @@ for i in range(rrt.iterations):
     new = rrt.JoinSamplePoint(rrt.NearestNode, point)
     bool = rrt.ObstacleCollision(rrt.NearestNode, new)
     if(bool == False):
+       # print(grid[point[0], point[1]])
         rrt.AddChildNode(new[0], new[1])
         plt.pause(0.10)
-        plt.plot([rrt.NearestNode.x_position, new[0]], [rrt.NearestNode.y_position, new[1]], 'go--')
+        plt.plot([rrt.NearestNode.x_position, new[0]], [rrt.NearestNode.y_position, new[1]], 'g.--')
         
         if(rrt.GoalReached(new)):
             rrt.AddChildNode(goal[0], goal[1])
-            print("Goal Found")
+            print("Goal Has Been Discovered")
             break
-        
         
 rrt.BackTraceRRTPath(rrt.goal)
 rrt.List_Of_Waypoints.insert(0, start)
 print("Number Of Waypoints = ", rrt.Num_Of_Waypoints)
-print("Path Distance = ", rrt.path_distance)
+print("Total Path Distance = ", rrt.path_distance)
 print("List Of Waypoints = ", rrt.List_Of_Waypoints)
 
 for i in range(len(rrt.List_Of_Waypoints) - 1):
-    plt.plot([rrt.List_Of_Waypoints[i][0], rrt.List_Of_Waypoints[i+1][0]], [rrt.List_Of_Waypoints[i][1], rrt.List_Of_Waypoints[i+1][1]], 'ro--')
+    plt.plot([rrt.List_Of_Waypoints[i][0], rrt.List_Of_Waypoints[i+1][0]], [rrt.List_Of_Waypoints[i][1], rrt.List_Of_Waypoints[i+1][1]], 'r.--')
     plt.pause(0.10)
     
     if i == len(rrt.List_Of_Waypoints) - 2:
-        plt.savefig("Result.png")
+        plt.savefig("Images/Result.png")
     
 
         
