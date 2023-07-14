@@ -15,7 +15,7 @@ class TreeNode():
         self.children = []
         self.parent = None
     
-# RRT Algoritm
+# RRT Algorithm
 class RRTalgoritm():
     def __init__(self, start_position, goal_position, Num_Of_Iterations, Max_Num_Of_Iterations, grid, step_size):
         self.tree = TreeNode(start_position[0], start_position[1])
