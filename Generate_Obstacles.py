@@ -32,4 +32,4 @@ while i < num_of_obs:
 
 plt.axis('off')
 
-plt.savefig("obstacles.png")
+plt.savefig("Images/Obstacles.png")
