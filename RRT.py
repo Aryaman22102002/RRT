@@ -1,7 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
+from matplotlib import lines
 import random
+import sys
 
 np.set_printoptions(precision = 3, suppress = True)
 
@@ -15,11 +17,11 @@ class TreeNode():
     
 # RRT Algoritm
 class RRTalgoritm():
-    def __init__(self, start_position, goal_position, Num_Of_Iterations, grid, step_size):
+    def __init__(self, start_position, goal_position, Num_Of_Iterations, Max_Num_Of_Iterations, grid, step_size):
         self.tree = TreeNode(start_position[0], start_position[1])
         self.goal = TreeNode(goal_position[0], goal_position[1])
         self.NearestNode = TreeNode(None, None)
-        self.iterations = min(Num_Of_Iterations, 200)
+        self.iterations = min(Num_Of_Iterations, Max_Num_Of_Iterations)
         self.grid = grid
         self.rho = step_size
         self.path_distance = 0
@@ -37,18 +39,18 @@ class RRTalgoritm():
             TempNode.parent = self.NearestNode
             
     def SampleAPoint(self):
-        x = random.randint(1, self.grid[1])
-        y = random.randint(1, self.grid[0])
+        x = random.randint(1, grid.shape[1])
+        y = random.randint(1, grid.shape[0])
         point = np.array([x, y])
         return point
     
     def JoinSamplePoint(self, location_start, location_end):
         offset = self.rho*self.UnitVector(location_start, location_end)
         point = np.array([location_start.x_position + offset[0], location_start.y_position + offset[1]])
-        if point[0] >= self.grid.shape[1]:
-           point[0] = self.grid.shape[1]
-        if point[1] >= self.grid.shape[0]:
-           point[1] = self.grid.shape[0]
+        if point[0] >= grid.shape[1]:
+           point[0] = grid.shape[1]
+        if point[1] >= grid.shape[0]:
+           point[1] = grid.shape[0]
         return point
     
     def ObstacleCollision(self, location_start, location_end):
@@ -59,7 +61,7 @@ class RRTalgoritm():
             temp_point[0] = location_start.x_position + i*u_hat[0]
             temp_point[1] = location_start.y_position + i*u_hat[1]
             
-            if(self.grid[round(temp_point[1]), round(temp_point[0])] == 1):
+            if(self.grid[min(round(temp_point[1]), 479), min(round(temp_point[0]), 639)] == 1):
                 return True
             else:
                 return False
@@ -98,6 +100,9 @@ class RRTalgoritm():
         self.nearest_distance = 10000
         
     def BackTraceRRTPath(self, goal):
+        if goal == None:
+            print("Number of iterations have exceeded the maximum limit. Hence, terminating the program.")
+            sys.exit()
         if goal.x_position == self.tree.x_position:
             return 
         
@@ -110,11 +115,60 @@ class RRTalgoritm():
         
 
 grid = np.load("grid.npy")
+print(grid.shape)
 start = np.array([100.0, 100.0])
-goal = np.array([500.0, 500.0])
-Num_Of_Iterations = 200
+goal = np.array([420.0, 500.0])
+Num_Of_Iterations = 400
+Max_Num_Of_Iterations = 500
 step_size = 50
-GoalArea = Circle((goal[0], goal[1]), step_size, color = 'b', fill = "False")
+GoalArea = Circle((goal[0], goal[1]), step_size, color = 'b', fill = False)
+
+fig = plt.figure("RRT Algorithm")
+plt.imshow(grid, cmap = 'binary')
+plt.plot(start[0], start[1], 'ro')
+plt.plot(goal[0], goal[1], 'bo')
+ax = fig.gca()
+ax.add_patch(GoalArea)
+plt.xlabel('X-Axis $(m)$')
+plt.ylabel('Y-Axis $(m)$')
+
+rrt = RRTalgoritm(start, goal, Num_Of_Iterations, Max_Num_Of_Iterations, grid, step_size)
+
+for i in range(rrt.iterations):
+    rrt.ResetNearestAttributeValues()
+    print("Iteration = ", i)
+    
+    point = rrt.SampleAPoint()
+    rrt.FindNearestNode(rrt.tree, point)
+    new = rrt.JoinSamplePoint(rrt.NearestNode, point)
+    bool = rrt.ObstacleCollision(rrt.NearestNode, new)
+    if(bool == False):
+        rrt.AddChildNode(new[0], new[1])
+        plt.pause(0.10)
+        plt.plot([rrt.NearestNode.x_position, new[0]], [rrt.NearestNode.y_position, new[1]], 'go--')
+        
+        if(rrt.GoalReached(new)):
+            rrt.AddChildNode(goal[0], goal[1])
+            print("Goal Found")
+            break
+        
+        
+rrt.BackTraceRRTPath(rrt.goal)
+rrt.List_Of_Waypoints.insert(0, start)
+print("Number Of Waypoints = ", rrt.Num_Of_Waypoints)
+print("Path Distance = ", rrt.path_distance)
+print("List Of Waypoints = ", rrt.List_Of_Waypoints)
+
+for i in range(len(rrt.List_Of_Waypoints) - 1):
+    plt.plot([rrt.List_Of_Waypoints[i][0], rrt.List_Of_Waypoints[i+1][0]], [rrt.List_Of_Waypoints[i][1], rrt.List_Of_Waypoints[i+1][1]], 'ro--')
+    plt.pause(0.10)
+    
+    if i == len(rrt.List_Of_Waypoints) - 2:
+        plt.savefig("Result.png")
+    
+
+        
+
     
         
         
