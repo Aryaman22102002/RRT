@@ -61,7 +61,7 @@ class RRTalgoritm():
             temp_point[0] = location_start.x_position + i*u_hat[0]
             temp_point[1] = location_start.y_position + i*u_hat[1]
             
-            if(self.grid[min(round(temp_point[1]), 479), min(round(temp_point[0]), 639)] == 1):
+            if(self.grid[min(round(temp_point[1]), 479), min(round(temp_point[0]), 639)] == 1 or self.grid[min(round(temp_point[1]) + 1, 479) , min(round(temp_point[0]), 639)] == 1 or self.grid[min(round(temp_point[1]), 479), min(round(temp_point[0]) + 1, 639)] == 1 or self.grid[min(round(temp_point[1]) + 1, 479), min(round(temp_point[0]) + 1, 639)] == 1 or self.grid[min(round(temp_point[1]) - 1, 479), min(round(temp_point[0]), 639)] == 1 or self.grid[min(round(temp_point[1]), 479), min(round(temp_point[0]) - 1, 639)] == 1 or self.grid[min(round(temp_point[1]) - 1, 479), min(round(temp_point[0]) - 1, 639)] == 1):
                 return True
             else:
                 return False
@@ -136,7 +136,7 @@ rrt = RRTalgoritm(start, goal, Num_Of_Iterations, Max_Num_Of_Iterations, grid, s
 
 for i in range(rrt.iterations):
     rrt.ResetNearestAttributeValues()
-    print("Iteration = ", i)
+    print("Iteration = ", i+1)
     
     point = rrt.SampleAPoint()
     rrt.FindNearestNode(rrt.tree, point)
