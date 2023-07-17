@@ -44,7 +44,7 @@ class RRTalgoritm():
         point = np.array([x, y])
         return point
     
-    def JoinSamplePoint(self, location_start, location_end):
+    def CheckPathToSamplePoint(self, location_start, location_end):
         offset = self.rho*self.UnitVector(location_start, location_end)
         point = np.array([location_start.x_position + offset[0], location_start.y_position + offset[1]])
         if point[0] >= grid.shape[1]:
@@ -53,7 +53,7 @@ class RRTalgoritm():
            point[1] = grid.shape[0]
         return point
     
-    def ObstacleCollision(self, location_start, location_end):
+    def CheckObstacleCollision(self, location_start, location_end):
         u_hat = self.UnitVector(location_start, location_end)
         temp_point = np.array([0.0, 0.0])
         
@@ -154,8 +154,8 @@ for i in range(rrt.iterations):
     
     point = rrt.SampleAPoint()
     rrt.FindNearestNode(rrt.tree, point)
-    new = rrt.JoinSamplePoint(rrt.NearestNode, point)
-    bool = rrt.ObstacleCollision(rrt.NearestNode, new)
+    new = rrt.CheckPathToSamplePoint(rrt.NearestNode, point)
+    bool = rrt.CheckObstacleCollision(rrt.NearestNode, new)
     if(bool == False):
        # print(grid[point[0], point[1]])
         rrt.AddChildNode(new[0], new[1])
