@@ -47,6 +47,7 @@ class RRTalgoritm():
     def CheckPathToSamplePoint(self, location_start, location_end):
         offset = self.rho*self.UnitVector(location_start, location_end)
         point = np.array([location_start.x_position + offset[0], location_start.y_position + offset[1]])
+        
         if point[0] >= grid.shape[1]:
            point[0] = grid.shape[1]
         if point[1] >= grid.shape[0]:
@@ -61,7 +62,7 @@ class RRTalgoritm():
             temp_point[0] = location_start.x_position + i*u_hat[0]
             temp_point[1] = location_start.y_position + i*u_hat[1]
             
-            if(self.grid[min(round(temp_point[1]), self.grid.shape[0] - 1), min(round(temp_point[0]), self.grid.shape[1] - 1)] == 1 or self.grid[min(round(temp_point[1]) + 1, self.grid.shape[0] - 1) , min(round(temp_point[0]), self.grid.shape[1] - 1)] == 1 or self.grid[min(round(temp_point[1]), self.grid.shape[0] - 1), min(round(temp_point[0]) + 1, self.grid.shape[1] - 1)] == 1 or self.grid[min(round(temp_point[1]) + 1, self.grid.shape[0] - 1), min(round(temp_point[0]) + 1, self.grid.shape[1] - 1)] == 1 or self.grid[min(round(temp_point[1]) - 1, self.grid.shape[0] - 1), min(round(temp_point[0]), self.grid.shape[1] - 1)] == 1 or self.grid[min(round(temp_point[1]), self.grid.shape[0] - 1), min(round(temp_point[0]) - 1, self.grid.shape[1] - 1)] == 1 or self.grid[min(round(temp_point[1]) - 1, self.grid.shape[0] - 1), min(round(temp_point[0]) - 1, self.grid.shape[1] - 1)] == 1):
+            if(self.grid[min(int(round(temp_point[1])), self.grid.shape[0] - 1), min(int(round(temp_point[0])), self.grid.shape[1] - 1)] == 1 or self.grid[min(int(round(temp_point[1])) + 1, self.grid.shape[0] - 1) , min(int(round(temp_point[0])), self.grid.shape[1] - 1)] == 1 or self.grid[min(int(round(temp_point[1])), self.grid.shape[0] - 1), min(int(round(temp_point[0])) + 1, self.grid.shape[1] - 1)] == 1 or self.grid[min(int(round(temp_point[1])) + 1, self.grid.shape[0] - 1), min(int(round(temp_point[0])) + 1, self.grid.shape[1] - 1)] == 1 or self.grid[min(int(round(temp_point[1])) - 1, self.grid.shape[0] - 1), min(int(round(temp_point[0])), self.grid.shape[1] - 1)] == 1 or self.grid[min(int(round(temp_point[1])), self.grid.shape[0] - 1), min(int(round(temp_point[0])) - 1, self.grid.shape[1] - 1)] == 1 or self.grid[min(int(round(temp_point[1])) - 1, self.grid.shape[0] - 1), min(int(round(temp_point[0])) - 1, self.grid.shape[1] - 1)] == 1):
                 return True
             else:
                 return False
@@ -117,7 +118,6 @@ class RRTalgoritm():
 grid = np.load("Images/Grid.npy")
 #start = np.array([100.0, 100.0])
 #goal = np.array([420.0, 500.0])
-
 flag = 0
 
 while flag == 0:
