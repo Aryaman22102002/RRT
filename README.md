@@ -17,13 +17,16 @@ This is my implementation of a path planning algorithm known as the Rapidly Expl
    ┣ 📜start.py                   # Runs all three required python files in appropriate sequence. 
 ```
 
-### Requirements
+## Requirements
 - [Python 3](https://www.python.org/downloads/) 
 - [Numpy](https://numpy.org/)
 - [Pillow](https://pypi.org/project/Pillow/)
 - [Matplotlib](https://matplotlib.org/)
 
-### Output
+## How to run
+- Just run the `start.py` file to start the simulation using the command `python3 start.py`.
+
+## Output
 
 ![Result](https://user-images.githubusercontent.com/82901720/268468637-51e1eb50-585d-4eb6-8ccf-def3afa83fff.png)
 
