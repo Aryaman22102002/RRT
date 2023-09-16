@@ -8,7 +8,9 @@ This is my implementation of a path planning algorithm known as the Rapidly Expl
    ┣ 📂Images 
    ┃ ┗ 📜Grid.npy                 # Numpy grid of the image
    ┃ ┗ 📜Obstacles.png            # Image with obstacles. 
-   ┃ ┗ 📜Result.png               # Output screenshot                       
+   ┃ ┗ 📜Result.png               # Output screenshot
+   ┣ 📂Videos
+   ┃ ┗ 📜Example_2.mp4            # Video of the simulation.                   
    ┣ 📜Generate_Final_Grid.py     # Converts the image with obstacles into a numpy array/grid.
    ┣ 📜Generate_Obstacles.py      # Generates an image with black rectangular obstacles.                    
    ┣ 📜LICENSE
