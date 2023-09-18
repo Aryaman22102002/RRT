@@ -3,19 +3,19 @@ from matplotlib.patches import Rectangle
 from random import randrange
     
 x_axis_min_limit = int(0)
-x_axis_max_limit = int(100)
+x_axis_max_limit = int(1000)
 y_axis_min_limit = int(0)
-y_axis_max_limit = int(100)
+y_axis_max_limit = int(1000)
 
 fig = plt.figure()
 plt.xlim(0, 100)
 plt.ylim(0, 100)
 
-num_of_obs = int(input("Please enter the number of obstacles required between 2 to 5: "))
+num_of_obs = int(input("Please enter the number of obstacles required between 2 to 8: "))
 if num_of_obs < 2:
   num_of_obs = 2
-elif num_of_obs > 5:
-  num_of_obs = 5
+elif num_of_obs > 8:
+  num_of_obs = 8
   
 currentAxis = plt.gca()
 i = 0
