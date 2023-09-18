@@ -121,12 +121,12 @@ grid = np.load("Images/Grid.npy")
 flag = 0
 
 while flag == 0:
-    start_x = random.randint(1, grid.shape[0] - 1)
-    start_y = random.randint(1, grid.shape[1] - 1)
-    goal_x = random.randint(1, grid.shape[0] - 1)
-    goal_y = random.randint(1, grid.shape[1] - 1)
+    start_x = random.randint(1, grid.shape[1] - 1)
+    start_y = random.randint(1, grid.shape[0] - 1)
+    goal_x = random.randint(1, grid.shape[1] - 1)
+    goal_y = random.randint(1, grid.shape[0] - 1)
 
-    if(grid[start_x, start_y] == 0 and grid[goal_x, goal_y] == 0):
+    if(grid[start_y, start_x] == 0 and grid[goal_y, goal_x] == 0):
         flag = 1
 
 start = np.array([start_x, start_y])
@@ -150,22 +150,26 @@ rrt = RRTalgoritm(start, goal, Num_Of_Iterations, Max_Num_Of_Iterations, grid, s
 
 for i in range(rrt.iterations):
     rrt.ResetNearestAttributeValues()
-    print("Iteration = ", i+1)
+  #  print("Iteration = ", i+1)
     
     point = rrt.SampleAPoint()
     rrt.FindNearestNode(rrt.tree, point)
     new = rrt.CheckPathToSamplePoint(rrt.NearestNode, point)
-    bool = rrt.CheckObstacleCollision(rrt.NearestNode, new)
-    if(bool == False):
-       # print(grid[point[0], point[1]])
-        rrt.AddChildNode(new[0], new[1])
-        plt.pause(0.10)
-        plt.plot([rrt.NearestNode.x_position, new[0]], [rrt.NearestNode.y_position, new[1]], 'g.--')
-        
-        if(rrt.GoalReached(new)):
-            rrt.AddChildNode(goal[0], goal[1])
-            print("Goal Has Been Discovered")
-            break
+    temp_list = new.ravel().tolist()
+    if temp_list[0] < grid.shape[1] and temp_list[1] < grid.shape[0]:
+       if grid[int(temp_list[1]),int(temp_list[0])] == 0:
+        bool = rrt.CheckObstacleCollision(rrt.NearestNode, new)
+        if(bool == False):
+        # print(grid[point[0], point[1]])
+            rrt.AddChildNode(new[0], new[1])
+            plt.pause(0.10)
+            plt.plot([rrt.NearestNode.x_position, new[0]], [rrt.NearestNode.y_position, new[1]], 'g.--')
+            
+            if(rrt.GoalReached(new)):
+                rrt.AddChildNode(goal[0], goal[1])
+                print("Goal Has Been Discovered")
+                print("Total Number Of Iterations Required = ", i)
+                break
         
 rrt.BackTraceRRTPath(rrt.goal)
 rrt.List_Of_Waypoints.insert(0, start)
