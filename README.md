@@ -47,10 +47,12 @@ This is my implementation of a path planning algorithm known as the Rapidly Expl
 ```
 
 ## Requirements
-- [Python 3](https://www.python.org/downloads/) 
-- [Numpy](https://numpy.org/)
-- [Pillow](https://pypi.org/project/Pillow/)
-- [Matplotlib](https://matplotlib.org/)
+<p>
+<image src="https://user-images.githubusercontent.com/82901720/212160658-6f195834-8872-4203-85ce-061a18272f86.svg" width=50 title="python"> &nbsp; Python <br> <br>
+<image src="https://user-images.githubusercontent.com/50221806/86498201-a8bd8680-bd39-11ea-9d08-66b610a8dc01.png" width=50 title="numpy"> &nbsp; Numpy <br> <br>
+<image src="https://raw.githubusercontent.com/python-pillow/pillow-logo/main/pillow-logo-dark-text-1280x640.png" width=50 title="pillow"> &nbsp; Pillow <br> <br>
+<image src="https://www.fireblazeaischool.in/blogs/wp-content/uploads/2020/06/matplotlib1.jpg" width=50 title="matplotlib"> &nbsp; Matplotlib <br>
+</p>
 
 ## How to run
 - Just run the `start.py` file to start the simulation using the command `python3 start.py`.
