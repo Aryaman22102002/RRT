@@ -57,27 +57,27 @@ This is my implementation of a path planning algorithm known as the Rapidly Expl
 
 ## Output
 
-#### Example 1
+### Example 1
 ![Result](https://user-images.githubusercontent.com/82901720/268761840-febe97e2-fe19-4f06-b96c-b62c020e7853.png)
 
 https://github.com/Aryaman22102002/RRT/assets/82901720/6818075c-6670-4785-a666-1cbe56fc7ab7
 
-#### Example 2
+### Example 2
 ![Result](https://user-images.githubusercontent.com/82901720/268761861-ac79028f-3492-4102-b469-1443e6dfebda.png)
 
 https://github.com/Aryaman22102002/RRT/assets/82901720/4ce4a685-a28b-4014-a464-55b02fa26ca0
 
-#### Example 3
+### Example 3
 ![Result](https://user-images.githubusercontent.com/82901720/268761922-83f3bc2f-128e-4c72-a075-e124f7aa28f9.png)
 
 https://github.com/Aryaman22102002/RRT/assets/82901720/59b76644-53bf-4336-a450-3872af9cf1f5
 
-#### Example 4
+### Example 4
 ![Result](https://user-images.githubusercontent.com/82901720/268761937-5da00a10-f929-4f06-bc7b-71b5aa8fcd96.png)
 
 https://github.com/Aryaman22102002/RRT/assets/82901720/a4a77c8a-a814-489f-82ef-1f4e242f5e8d
 
-#### Example 5
+### Example 5
 ![Result](https://user-images.githubusercontent.com/82901720/268761949-6f830025-08aa-44d0-9d01-5e05a4ed4e79.png)
 
 https://github.com/Aryaman22102002/RRT/assets/82901720/3eec82b0-6d64-4477-a6ae-beddd5662c9f
