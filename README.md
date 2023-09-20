@@ -31,6 +31,7 @@ This is my implementation of a path planning algorithm known as the Rapidly Expl
      ┃ ┗ 📜Obstacles.png                   # Image with obstacles. 
      ┃ ┗ 📜Result.png                      # Output screenshot
      ┃ ┗ 📜Squared_Obstacles_Image.png     # Obstacle Image In Square Dimensions
+     ┣ 📜RRT.png                           # RRT algorithm flowchart
    ┣ 📂Videos
    ┃ ┗ 📜Example1.mp4                      # Video of the simulation for 3 obstacles case.
    ┃ ┗ 📜Example2.mp4                      # Video of the simulation for 4 obstacles case.
@@ -56,6 +57,10 @@ This is my implementation of a path planning algorithm known as the Rapidly Expl
 
 ## How to run
 - Just run the `start.py` file to start the simulation using the command `python3 start.py`.
+
+## RRT Algorithm Flowchart
+
+![RRT](https://user-images.githubusercontent.com/82901720/269403165-29186ec5-657f-43bd-9f65-e088ccafba04.png)
 
 ## Output
 
