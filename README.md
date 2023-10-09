@@ -1,6 +1,6 @@
 # RRT
 
-This is my implementation of a path planning algorithm known as the Rapidly Exploring Random Tree (RRT) algorithm.
+This is my implementation of a path planning algorithm known as the "Rapidly Exploring Random Tree (RRT)" algorithm.
 
 ## File Structure
 
